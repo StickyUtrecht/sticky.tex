@@ -17,6 +17,53 @@
 \NeedsTeXFormat{LaTeX2e}
 
 %
+% Variabelen
+%
+%   Deze class definieert variabelen voor de naam van het orgaan (alias: commssie)
+%   leden van dit orgaan, afwezigen, tevens aanwezigen en de datum.
+%
+%   De volgende macros kunnen worden gebruikt voor het instellen van deze
+%   variabelen:
+%
+%     \orgaan{<naam>}            - De naam van het orgaan wat vergadert.
+%       alias: \commssie{}
+%
+%     \leden{[<naam>,]}          - Leden van het orgaan.
+%
+%     \absent{[<naam>,]}         - Afwezige leden.
+%
+%     \aanwezig{[<naam>,]}       - Andere aanwezigen.
+%
+%     \datum{<datum>}            - Datum van de vergadering.
+%
+
+\global\let\@orgaan\@empty
+\newcommand{\definieerorgaan}[1]{\def\@orgaan{#1}}
+\let\orgaan\definieerorgaan %
+\let\commissie\definieerorgaan %
+\newcommand{\toon@orgaan}{\@orgaan}
+
+\global\let\@leden\@empty
+\newcommand{\definieerleden}[1]{\def\@leden{#1}}
+\let\leden\definieerleden %
+\newcommand{\toon@leden}{\@leden}
+
+\global\let\@absent\@empty
+\newcommand{\definieerabsent}[1]{\def\@absent{#1}}
+\let\absent\definieerabsent %
+\newcommand{\toon@absent}{\@absent}
+
+\global\let\@aanwezig\@empty
+\newcommand{\definieeraanwezig}[1]{\def\@aanwezig{#1}}
+\let\aanwezig\definieeraanwezig %
+\newcommand{\toon@aanwezig}{\@aanwezig}
+
+\global\let\@datum\@empty
+\newcommand{\definieerdatum}[1]{\def\@datum{#1}}
+\let\datum\definieerdatum %
+\newcommand{\toon@datum}{\@datum}
+
+%
 % Opties inlezen
 %
 %   De volgende regel leest de opties in die aan de klasse worden meegegeven en
