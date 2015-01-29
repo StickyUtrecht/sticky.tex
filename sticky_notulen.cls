@@ -84,5 +84,32 @@
 \ProcessOptions \relax
 \LoadClass{article}
 
-% vim: ft=tex
+%
+% Layout
+%
+%   De volgende regels definieren het uiterlijk van het uiteindelijke document.
+%   Marges worden ingesteld en headers worden ingesteld.
+%
+%   Header en footer worden van de eerste pagina verwijderd. Opvolgende pagina's
+%   krijgen een header met daarin de commissienaam, datum van de vergadering en
+%   het paginanummer.
+%
+\RequirePackage[left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 
+\RequirePackage{fancyhdr}
+\fancypagestyle{firstpage}{%
+\fancyhf{} % clear all six fields
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{followingpage}{%
+\fancyhf{} % clear all six fields
+\fancyhead[RE,LO]{\toon@orgaan, \toon@datum}
+\fancyhead[LE,RO]{page \thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+}
+\pagestyle{followingpage}
+\AtBeginDocument{\thispagestyle{firstpage}}
+
+% vim: ft=tex
