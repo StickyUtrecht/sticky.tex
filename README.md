@@ -1,9 +1,15 @@
 # sticky.tex
 
-LaTeX bestanden voor gebruik voor Studievereniging Sticky. (C) Laurens Duijvesteijn 2015.
-
-Exclusief voor gebruik voor Studievereniging Sticky. Mail l.duijvesteijn (at) gmail.com voor toestemming voor andere toepassingen.
+This is a collection of LaTeX classes and styles in use at Study Association Sticky.
+They are intended for use in minutes of committees and other meetings.
 
 ## License
 
-See `LICENSE.md`.
+MIT with parts of the code under CC-BY-SA 3.0 unported because of their origin on
+Stack Exchange. These sections are marked by comments, where you will also find
+attribution. In the future the full list will be in this README as well.
+
+See `LICENSE.md` for the MIT license and [here][cc-by-sa] for the relevant Creative
+Commons License.
+
+  [cc-by-sa]:https://creativecommons.org/licenses/by-sa/3.0/

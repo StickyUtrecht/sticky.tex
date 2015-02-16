@@ -52,7 +52,10 @@
 %     \DeclareAuthorVariable*{}   - define a mandatory author variable.
 %     \DeclareAuthorVariable{}    - define an optional author variable.
 %
-%   Credits: http://tex.stackexchange.com/a/93912
+%   Credits: tex.se.com user "egreg" https://tex.stackexchange.com/users/4427/egreg
+%   in answer http://tex.stackexchange.com/a/93912
+%
+%   Content in this subsection is CC-BY-SA 3.0 unported
 
 % This branches between the normal and starred command.
 \newcommand{\DeclareAuthorVariable}{%
@@ -81,25 +84,20 @@
      \expandafter\string\csname#1\endcsname}%
 }
 
+%   End of CC-BY-SA 3.0 unported code
+
 %
 % AuthorVariable declarations
 %
 %   This class exposes the following variables to authors for use in the template.
 %
 %   \committee{}                 - The name of the committee
-%
 %   \members{}                   - The members of the committee
-%
 %   \date{}                      - Date of the meeting
-%
 %   \absent{} (optional)         - Absentees, if any.
-%
 %   \alsopresent{} (optional)    - People also present, if any.
 %
 % TODO: define the author interface
-
-
-
 
 %
 % Formatting
