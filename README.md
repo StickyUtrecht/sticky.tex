@@ -3,6 +3,13 @@
 This is a collection of LaTeX classes and styles in use at Study Association Sticky.
 They are intended for use in minutes of committees and other meetings.
 
+## Dependencies
+
+ - Reasonable TeXLive install
+ - [`carlito`][carlito] font package
+
+ [carlito]:http://www.ctan.org/tex-archive/fonts/carlito/
+
 ## License
 
 MIT with parts of the code under CC-BY-SA 3.0 unported because of their origin on
