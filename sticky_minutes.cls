@@ -37,6 +37,8 @@
 \ProcessOptions \relax
 \LoadClass{sticky_typography}
 
+\RequirePackage{xspace}
+
 %
 % DeclareAuthorVariable interface
 %
@@ -51,20 +53,20 @@
 %
 %   Content in this subsection is CC-BY-SA 3.0 unported
 
-% This branches between the normal and starred command.
+%% This branches between the normal and starred command.
 \newcommand{\DeclareAuthorVariable}{%
   \@ifstar{\vars@DeclareAuthorVariable{\vars@mandatory@var}}
           {\vars@DeclareAuthorVariable{\vars@optional@var}}%
 }
 
-% The main command; the internal version of \foo is \vars@foo. The macro \vars@foo
-% is initialized to give an error or an info message when used, so if the user
-% doesn't provide a value for a mandatory variable, we'll catch the issue.
+%% The main command; the internal version of \foo is \vars@foo. The macro \vars@foo
+%% is initialized to give an error or an info message when used, so if the user
+%% doesn't provide a value for a mandatory variable, we'll catch the issue.
 \newcommand{\vars@DeclareAuthorVariable}[2]{%
   \@namedef{vars@#2}{#1{#2}}%
   \@namedef{#2}##1{\@namedef{vars@#2}{##1}}%
 }
-% The error and info messages
+%% The error and info messages
 \newcommand{\vars@mandatory@var}[1]{%
   \ClassError{vars}
     {Missing value for mandatory variable
@@ -87,26 +89,19 @@
 %     \committee{}                 - The name of the committee
 %     \members{}                   - The members of the committee
 %     \date{}                      - Date of the meeting
-%     \absent{}                    - Absentees, if any.
-%     \alsopresent{}               - People also present, if any.
+%     \absent{}                    - Absentees
+%     \guests{}                    - Guests
+%     \notetaker{}                 - The notetaker of the minutes
 %
-% TODO: define the author interface
 \DeclareAuthorVariable*{committee}
 \DeclareAuthorVariable*{members}
 \DeclareAuthorVariable*{date}
 \DeclareAuthorVariable*{absent}
-\DeclareAuthorVariable*{alsopresent}
-\DeclareAuthorVariable*{secretary}
+\DeclareAuthorVariable*{guests}
+\DeclareAuthorVariable*{notetaker}
 
 %
-% Position declarations
-%
-\RequirePackage{xspace}
-\newcommand{\chairman}{\textit{(Voorzitter)}\xspace}
-\newcommand{\treasurer}{\textit{(Penningmeester)}\xspace}
-
-%
-% Formatting
+% Page headers/footers
 %
 %   Here the actual formatting of the document is defined. The standard header and
 %   footer are removed from the first page, and the next pages get standard ones.
@@ -123,18 +118,29 @@
 }
 \pagestyle{pagestyle}
 
-
-% `\metadata` displays the metadata of the minutes. It figures out what is defined
-% by itself.
+%
+% Minutes metadata
+%
+%   `\metadata` prints a description list with the members of the committee, which
+%   ones are absent, the guests and the minutestaker
+%   by itself.
+%
 \newcommand{\metadata}{%
   \begin{description}
     \item[Leden:] \vars@members
     \item[Afwezig:] \vars@absent
-    \item[Ook aanwezig:] \vars@alsopresent
-    \item[Notulist:] \vars@secretary
+    \item[Gasten:] \vars@guests
+    \item[Notulist:] \vars@notetaker
   \end{description}
 }
 
+%
+% Minute header
+%
+%   The header of the minutes consists of the name of the committee that was in
+%   assembly and the date. It also prints some horizontal rules and the previously
+%   defined metadata.
+%
 \newcommand{\header}{%
   \begin{center}
     {\Large Notulen \vars@committee\xspace vergadering \vars@date}
@@ -143,8 +149,20 @@
   \metadata
   \noindent\rule{\textwidth}{0.7pt}
 }
+
 %
 % Environments
 %
+
+
+%
+% Dutch aliases
+%
+\let\commissie\committee
+\let\orgaan\committee
+\let\leden\members
+\let\datum\date
+\let\gasten\guests
+\let\notulist\notetaker
 
 % vim: ft=tex
