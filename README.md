@@ -10,6 +10,10 @@ They are intended for use in minutes of committees and other meetings.
 
  [carlito]:http://www.ctan.org/tex-archive/fonts/carlito/
 
+## Versioning
+
+This class file will follow semver after `1.0.0`.
+
 ## License
 
 MIT with parts of the code under CC-BY-SA 3.0 unported because of their origin on

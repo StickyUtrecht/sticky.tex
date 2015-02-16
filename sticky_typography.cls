@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_typography}[2015/02/16 version 0.0.8]
+\ProvidesClass{sticky_typography}[2015/02/16 version 0.0.1]
 \NeedsTeXFormat{LaTeX2e}
 
 %

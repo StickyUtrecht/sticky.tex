@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_minutes}[2015/02/16 version 0.0.8]
+\ProvidesClass{sticky_minutes}[2015/02/16 version 0.0.9]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -87,15 +87,23 @@
 %     \committee{}                 - The name of the committee
 %     \members{}                   - The members of the committee
 %     \date{}                      - Date of the meeting
-%     \absent{} (optional)         - Absentees, if any.
-%     \alsopresent{} (optional)    - People also present, if any.
+%     \absent{}                    - Absentees, if any.
+%     \alsopresent{}               - People also present, if any.
 %
 % TODO: define the author interface
 \DeclareAuthorVariable*{committee}
 \DeclareAuthorVariable*{members}
 \DeclareAuthorVariable*{date}
-\DeclareAuthorVariable{absent}
-\DeclareAuthorVariable{alsopresent}
+\DeclareAuthorVariable*{absent}
+\DeclareAuthorVariable*{alsopresent}
+\DeclareAuthorVariable*{secretary}
+
+%
+% Position declarations
+%
+\RequirePackage{xspace}
+\newcommand{\chairman}{\textit{(Voorzitter)}\xspace}
+\newcommand{\treasurer}{\textit{(Penningmeester)}\xspace}
 
 %
 % Formatting
@@ -103,8 +111,6 @@
 %   Here the actual formatting of the document is defined. The standard header and
 %   footer are removed from the first page, and the next pages get standard ones.
 %
-
-% Page headers
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
 
@@ -116,5 +122,29 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 \pagestyle{pagestyle}
+
+
+% `\metadata` displays the metadata of the minutes. It figures out what is defined
+% by itself.
+\newcommand{\metadata}{%
+  \begin{description}
+    \item[Leden:] \vars@members
+    \item[Afwezig:] \vars@absent
+    \item[Ook aanwezig:] \vars@alsopresent
+    \item[Notulist:] \vars@secretary
+  \end{description}
+}
+
+\newcommand{\header}{%
+  \begin{center}
+    {\Large Notulen \vars@committee\xspace vergadering \vars@date}
+  \end{center}
+  \noindent\rule{\textwidth}{0.3pt}
+  \metadata
+  \noindent\rule{\textwidth}{0.7pt}
+}
+%
+% Environments
+%
 
 % vim: ft=tex
