@@ -3,6 +3,9 @@
 This is a collection of LaTeX classes and styles in use at Study Association Sticky.
 They are intended for use in minutes of committees and other meetings.
 
+**This is not ready for use.** The API is constantly changing: commands get removed
+added back, renamed, etcetera. Use only for inspiration and development.
+
 ## Dependencies
 
  - Reasonable TeXLive install
