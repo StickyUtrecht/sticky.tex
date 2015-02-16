@@ -31,6 +31,7 @@
 %   `\relax` is a no-op command, which is used in place where LaTeX expects a macro,
 %   but none is required.
 %
+
 \DeclareOption*{\InputIfFileExists{\CurrentOption.leden}{}{%
   \PassOptionsToClass{\CurrentOption}{sticky_typography}}}
 
@@ -38,6 +39,38 @@
 \LoadClass{sticky_typography}
 
 \RequirePackage{xspace}
+
+%
+% Internationalization
+%
+%   In this section of the class, translations of the above strings are defined.
+%
+\RequirePackage{translations}
+
+\DeclareTranslationFallback{str-head}
+  {\vars@committee\xspace minutes \vars@date\xspace}
+\DeclareTranslation{Dutch}{str-head}
+  {Notulen \vars@committee\xspace \vars@date\xspace}
+
+\DeclareTranslationFallback{str-members}
+  {Members\xspace}
+\DeclareTranslation{Dutch}{str-members}
+  {Leden\xspace}
+
+\DeclareTranslationFallback{str-absent}
+  {Absent\xspace}
+\DeclareTranslation{Dutch}{str-absent}
+  {Afwezig\xspace}
+
+\DeclareTranslationFallback{str-guests}
+  {Guests\xspace}
+\DeclareTranslation{Dutch}{str-guests}
+  {Gasten\xspace}
+
+\DeclareTranslationFallback{str-notetaker}
+  {Minutes taker\xspace}
+\DeclareTranslation{Dutch}{str-notetaker}
+  {Notulist\xspace}
 
 %
 % DeclareAuthorVariable interface
@@ -111,8 +144,8 @@
 
 \fancypagestyle{pagestyle}{%
   \fancyhf{} % clear all six fields
-  \fancyhead[RE,LO]{\carlito \textbf{Notulen \vars@committee{}} - \vars@date}
-  \fancyhead[LE,RO]{\carlito \thepage{} / \pageref{LastPage}}
+  \fancyhead[L]{\carlito \textbf{\vars@committee{}} - \vars@date}
+  \fancyhead[R]{\carlito \thepage{} / \pageref{LastPage}}
   \renewcommand{\headrulewidth}{0.7pt}
   \renewcommand{\footrulewidth}{0pt}
 }
@@ -127,10 +160,10 @@
 %
 \newcommand{\metadata}{%
   \begin{description}
-    \item[Leden:] \vars@members
-    \item[Afwezig:] \vars@absent
-    \item[Gasten:] \vars@guests
-    \item[Notulist:] \vars@notetaker
+    \item[\GetTranslation{str-members}:] \vars@members
+    \item[\GetTranslation{str-absent}:] \vars@absent
+    \item[\GetTranslation{str-guests}:] \vars@guests
+    \item[\GetTranslation{str-notetaker}:] \vars@notetaker
   \end{description}
 }
 
@@ -143,7 +176,7 @@
 %
 \newcommand{\header}{%
   \begin{center}
-    {\Large Notulen \vars@committee\xspace vergadering \vars@date}
+    {\Large \GetTranslation{str-head}}
   \end{center}
   \noindent\rule{\textwidth}{0.3pt}
   \metadata
@@ -161,8 +194,10 @@
 \let\commissie\committee
 \let\orgaan\committee
 \let\leden\members
+\let\afwezig\absent
 \let\datum\date
 \let\gasten\guests
 \let\notulist\notetaker
+\let\hoofd\header
 
 % vim: ft=tex
