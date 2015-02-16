@@ -1,115 +1,113 @@
 % ---------------------------------------------------------------------------------
-% sticky_notulen.sty
-%   LaTeX template voor notulen van Studievereniging Sticky.
-%   2015-01-29 (C) Laurens Duijvesteijn l.duijvesteijn (at) gmail.com
+% sticky_minutes.cls
+%   LaTeX template for minutes for Study Association Sticky.
+%
+%   (C) 2015 Laurens Duijvesteijn <l.duijvesteijn@gmail.com>
+%
+%   MIT licensed.
+%
 % ---------------------------------------------------------------------------------
 
 %
-% Identificatie
+% Identification
 %
-%   De volgende regels geven deze klasse een naam, een versie en de laatste datum
-%   van modificatie. Verder worden hier beperkingen opgelegd aan het inputformaat.
-%   Deze klasse maakt gebruik van LaTeX macros en is daarmee niet geschikt voor
-%   gebruik met TeX installaties waar deze ontbreken. Elke standaard-distributie
-%   zou OK moeten zijn.
+%   The next lines give this class its name, a version and the date of last
+%   modification. It also restricts the input format to LaTex2e.
 %
 \ProvidesClass{sticky_notulen}[2015/01/29 versie 0.1]
 \NeedsTeXFormat{LaTeX2e}
 
 %
-% Variabelen
+% Typography
 %
-%   Deze class definieert variabelen voor de naam van het orgaan (alias: commssie)
-%   leden van dit orgaan, afwezigen, tevens aanwezigen en de datum.
+%   This class depends on the typographical configuration as defined in the style
+%   `sticky_typography.sty`.
 %
-%   De volgende macros kunnen worden gebruikt voor het instellen van deze
-%   variabelen:
-%
-%     \orgaan{<naam>}            - De naam van het orgaan wat vergadert.
-%       alias: \commssie{}
-%
-%     \leden{[<naam>,]}          - Leden van het orgaan.
-%
-%     \absent{[<naam>,]}         - Afwezige leden.
-%
-%     \aanwezig{[<naam>,]}       - Andere aanwezigen.
-%
-%     \datum{<datum>}            - Datum van de vergadering.
+%   TODO: create and import the style file.
 %
 
-\global\let\@orgaan\@empty
-\newcommand{\definieerorgaan}[1]{\def\@orgaan{#1}}
-\let\orgaan\definieerorgaan %
-\let\commissie\definieerorgaan %
-\newcommand{\toon@orgaan}{\@orgaan}
-
-\global\let\@leden\@empty
-\newcommand{\definieerleden}[1]{\def\@leden{#1}}
-\let\leden\definieerleden %
-\newcommand{\toon@leden}{\@leden}
-
-\global\let\@absent\@empty
-\newcommand{\definieerabsent}[1]{\def\@absent{#1}}
-\let\absent\definieerabsent %
-\newcommand{\toon@absent}{\@absent}
-
-\global\let\@aanwezig\@empty
-\newcommand{\definieeraanwezig}[1]{\def\@aanwezig{#1}}
-\let\aanwezig\definieeraanwezig %
-\newcommand{\toon@aanwezig}{\@aanwezig}
-
-\global\let\@datum\@empty
-\newcommand{\definieerdatum}[1]{\def\@datum{#1}}
-\let\datum\definieerdatum %
-\newcommand{\toon@datum}{\@datum}
-
 %
-% Opties inlezen
+% Options
 %
-%   De volgende regel leest de opties in die aan de klasse worden meegegeven en
-%   geeft deze door aan `article`. Als er een bestand <optie>.leden wordt gevonden
-%   wordt de code in dit bestand geladen.
+%   The next line reads the options given to the class. If a file is named
+%   `<option>.members` is found, this file is loaded. This is intended for use as
+%   `<committee_name>.members` to save the members of a certain committee for reuse.
+%
+%   After reading in the options, they are processed and the article class is loaded.
+%   `\relax` is a no-op command, which is used in place where LaTeX expects a macro,
+%   but none is required.
 %
 \DeclareOption*{\InputIfFileExists{\CurrentOption.leden}{}{%
   \PassOptionsToClass{\CurrentOption}{article}}}
 
-%
-% Opties uitvoeren en `article` inladen.
-%
-%   Opties worden ingeladen met de \ProcessOptions macro. \relax, ook wel no-op,
-%   is een operatie die niets doet. Dit is af en toe nodig om een operatie te geven
-%   waar de syntax van TeX dit verwacht, maar waar het niet wenselijk is om iets
-%   uit te voeren.
-%
 \ProcessOptions \relax
 \LoadClass{article}
 
 %
-% Layout
+% DeclareAuthorVariable interface
 %
-%   De volgende regels definieren het uiterlijk van het uiteindelijke document.
-%   Marges worden ingesteld en headers worden ingesteld.
+%   Here an abstraction is defined for the declaration of author variables. This
+%   consists of the following commands:
 %
-%   Header en footer worden van de eerste pagina verwijderd. Opvolgende pagina's
-%   krijgen een header met daarin de commissienaam, datum van de vergadering en
-%   het paginanummer.
+%     \DeclareAuthorVariable*{}   - define a mandatory author variable.
+%     \DeclareAuthorVariable{}    - define an optional author variable.
 %
-\RequirePackage[left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
+%   Credits: http://tex.stackexchange.com/a/93912
 
-\RequirePackage{fancyhdr}
-\fancypagestyle{firstpage}{%
-\fancyhf{} % clear all six fields
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
+% This branches between the normal and starred command.
+\newcommand{\DeclareAuthorVariable}{%
+  \@ifstar{\vars@DeclareAuthorVariable{\vars@mandatory@var}}
+          {\vars@DeclareAuthorVariable{\vars@optional@var}}%
 }
-\fancypagestyle{followingpage}{%
-\fancyhf{} % clear all six fields
-\fancyhead[RE,LO]{\toon@orgaan, \toon@datum}
-\fancyhead[LE,RO]{page \thepage}
-\renewcommand{\headrulewidth}{0.5pt}
-\renewcommand{\footrulewidth}{0.5pt}
+
+% The main command; the internal version of \foo is \vars@foo. The macro \vars@foo
+% is initialized to give an error or an info message when used, so if the user
+% doesn't provide a value for a mandatory variable, we'll catch the issue.
+\newcommand{\vars@DeclareAuthorVariable}[2]{%
+  \@namedef{vars@#2}{#1{#2}}%
+  \@namedef{#2}##1{\@namedef{vars@#2}{##1}}%
 }
-\pagestyle{followingpage}
-\AtBeginDocument{\thispagestyle{firstpage}}
+% The error and info messages
+\newcommand{\vars@mandatory@var}[1]{%
+  \ClassError{vars}
+    {Missing value for mandatory variable
+     \expandafter\string\csname#1\endcsname}
+    {You have to provide a value with
+     \expandafter\string\csname#1\endcsname{...}}%
+}
+\newcommand{\vars@optional@var}[1]{%
+  \ClassInfo{vars}
+    {Missing value for optional variable
+     \expandafter\string\csname#1\endcsname}%
+}
+
+%
+% AuthorVariable declarations
+%
+%   This class exposes the following variables to authors for use in the template.
+%
+%   \committee{}                 - The name of the committee
+%
+%   \members{}                   - The members of the committee
+%
+%   \date{}                      - Date of the meeting
+%
+%   \absent{} (optional)         - Absentees, if any.
+%
+%   \alsopresent{} (optional)    - People also present, if any.
+%
+% TODO: define the author interface
+
+
+
+
+%
+% Formatting
+%
+%   Here the actual formatting of the document is defined. The standard header and
+%   footer are removed from the first page, and the next pages get standard ones.
+%
+% TODO: create the class formatting
+%
 
 % vim: ft=tex
