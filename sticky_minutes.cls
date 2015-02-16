@@ -14,20 +14,14 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_notulen}[2015/01/29 versie 0.1]
+\ProvidesClass{sticky_minutes}[2015/01/29 versie 0.1]
 \NeedsTeXFormat{LaTeX2e}
 
 %
-% Typography
+% Typography and options
 %
 %   This class depends on the typographical configuration as defined in the style
-%   `sticky_typography.sty`.
-%
-%   TODO: create and import the style file.
-%
-
-%
-% Options
+%   `sticky_typography.cls`.
 %
 %   The next line reads the options given to the class. If a file is named
 %   `<option>.members` is found, this file is loaded. This is intended for use as
@@ -38,10 +32,10 @@
 %   but none is required.
 %
 \DeclareOption*{\InputIfFileExists{\CurrentOption.leden}{}{%
-  \PassOptionsToClass{\CurrentOption}{article}}}
+  \PassOptionsToClass{\CurrentOption}{sticky_typography}}}
 
 \ProcessOptions \relax
-\LoadClass{article}
+\LoadClass{sticky_typography}
 
 %
 % DeclareAuthorVariable interface
