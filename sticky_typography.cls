@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_typography}[2015/01/29 versie 0.1]
+\ProvidesClass{sticky_typography}[2015/02/16 version 0.0.8]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -41,13 +41,14 @@
 %   Gyre Heros as the heading font.
 %
 \RequirePackage[bitstream-charter]{mathdesign}
-\RequirePackage{tgheros}
+\RequirePackage{carlito}
 \RequirePackage{titlesec}
 \RequirePackage[T1]{fontenc}
 
+
 % Set the font of a \section to TeX Gyre Heros. 'b' is for bold.
 \titleformat{\section}
-  {\usefont{T1}{qhv}{b}{n}\selectfont}
+  {\carlito{}\bfseries{}}
   {}
   {0em}
   {\hspace{-0.4pt}\Large \thesection\hspace{0.6em}}

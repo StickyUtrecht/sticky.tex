@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_minutes}[2015/01/29 versie 0.1]
+\ProvidesClass{sticky_minutes}[2015/02/16 version 0.0.8]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -77,7 +77,6 @@
     {Missing value for optional variable
      \expandafter\string\csname#1\endcsname}%
 }
-
 %   End of CC-BY-SA 3.0 unported code
 
 %
@@ -85,13 +84,18 @@
 %
 %   This class exposes the following variables to authors for use in the template.
 %
-%   \committee{}                 - The name of the committee
-%   \members{}                   - The members of the committee
-%   \date{}                      - Date of the meeting
-%   \absent{} (optional)         - Absentees, if any.
-%   \alsopresent{} (optional)    - People also present, if any.
+%     \committee{}                 - The name of the committee
+%     \members{}                   - The members of the committee
+%     \date{}                      - Date of the meeting
+%     \absent{} (optional)         - Absentees, if any.
+%     \alsopresent{} (optional)    - People also present, if any.
 %
 % TODO: define the author interface
+\DeclareAuthorVariable*{committee}
+\DeclareAuthorVariable*{members}
+\DeclareAuthorVariable*{date}
+\DeclareAuthorVariable{absent}
+\DeclareAuthorVariable{alsopresent}
 
 %
 % Formatting
@@ -99,7 +103,18 @@
 %   Here the actual formatting of the document is defined. The standard header and
 %   footer are removed from the first page, and the next pages get standard ones.
 %
-% TODO: create the class formatting
-%
+
+% Page headers
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+
+\fancypagestyle{pagestyle}{%
+  \fancyhf{} % clear all six fields
+  \fancyhead[RE,LO]{\carlito \textbf{Notulen \vars@committee{}} - \vars@date}
+  \fancyhead[LE,RO]{\carlito \thepage{} / \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.7pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{pagestyle}
 
 % vim: ft=tex
