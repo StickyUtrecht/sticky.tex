@@ -59,7 +59,110 @@ kpsewhich sticky_minutes.cls
 
 ## Usage
 
-You can take a look at `tests.tex` for examples of usage.
+Here is a basic document that shows off the basic package API:
+
+```latex
+\documentclass[a4paper]{sticky_minutes}
+% Set the document language. The sticky_minutes.cls file supports Dutch and English
+\usepackage[english]{babel}
+
+% Set the metadata of the meeting:
+\committee{Trivial matters committee}
+\members{John Doe, Mike Smith, Mark Williams, Sofia Thompson, Emily Young, Amanda Walker}
+\absent{Mike Smith}
+\guests{Maria Scott}
+\notetaker{Sofia Thompson}
+\date{2015-02-17}
+
+\begin{document}
+
+\header
+
+\section{Opening}
+
+The chairman opens the meeting on 15:01.
+
+\section{Announcements}
+
+Emily says [..]
+
+Mark tells [..]
+
+\section{Open issues}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec interdum felis nec dui
+cursus, vitae tempor urna volutpat. Donec pretium dapibus lacus, et molestie felis
+convallis eget.
+
+\action{Sofia}{2015-03-01}{Prepare a presentation for the thing.}
+
+Nunc nec erat dictum mi varius finibus. Phasellus porta fermentum eros
+a iaculis. Quisque viverra, justo a laoreet consequat, eros metus pretium velit, sit
+amet blandit lorem enim non tellus.
+
+\action{Mike}{tomorrow}{Talk to Steven about the other thing.}
+
+Fusce facilisis at tellus ut tempor. Curabitur eleifend augue eu lorem molestie
+semper. Sed fringilla laoreet malesuada. Sed vulputate blandit orci, sit amet
+pellentesque ante lacinia id. Pellentesque ac tortor egestas, gravida nibh ut,
+dapibus est. In dapibus tristique enim non accumsan. Nulla vulputate lacus in lorem
+mattis hendrerit.
+
+\action{Sofia}{2015-02-24}{Make sure that the other other thing happens}
+
+\section{Closing}
+
+The chairman closes the meeting at 16:30.
+
+\appendix
+\actionlist
+
+\end{document}
+```
+
+The above can also be found in `demo.tex`. This will produce a document with an
+action list as appendix that sorts the action items per person as seen here:
+
+![Action list demo](demo.png)
+
+## API reference
+
+Here is a list of all of the commands that are intended for author use in this
+package.
+
+<dl>
+  <dt><code>\committee{}</code></dt>
+  <dt>Dutch: <code>\commissie</code> <code>\orgaan</code></dt>
+  <dd>The name of the committee of the minutes.</dd>
+
+  <dt><code>\members{}</code></dt>
+  <dt>Dutch: <code>\leden</code></dt>
+  <dd>The members of the committee.</dd>
+
+  <dt><code>\absent{}</code></dt>
+  <dt>Dutch: <code>\afwezig</code></dt>
+  <dd>The persons that are absent.</dd>
+
+  <dt><code>\guests{}</code></dt>
+  <dt>Dutch: <code>\gasten</code></dt>
+  <dd>Guests to the meeting</dd>
+
+  <dt><code>\notetaker{}</code></dt>
+  <dt>Dutch: <code>\notulist</code></dt>
+  <dd>The author of the meeting minutes.</dd>
+
+  <dt><code>\date{}</code></dt>
+  <dt>Dutch: <code>\datum</code></dt>
+  <dd>The date of the meeting.</dd>
+
+  <dt><code>\action{}{}{}</code></dt>
+  <dt>Dutch: <code>\ap</code></dt>
+  <dd>Records an action item for a person.</dd>
+
+  <dt><code>\actionlist</code></dt>
+  <dt>Dutch: <code>\actiepunten</code></dt>
+  <dd>Prints a sorted action list of the meeting.</dd>
+</dl>
 
 ## License
 
