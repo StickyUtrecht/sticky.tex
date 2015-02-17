@@ -72,6 +72,16 @@
 \DeclareTranslation{Dutch}{str-notetaker}
   {Notulist\xspace}
 
+\DeclareTranslationFallback{str-action}
+  {Action\xspace}
+\DeclareTranslation{Dutch}{str-action}
+  {AP\xspace}
+
+\DeclareTranslationFallback{str-actionlist}
+  {Action items\xspace}
+\DeclareTranslation{Dutch}{str-actionlist}
+  {Overzicht actiepunten\xspace}
+
 %
 % DeclareAuthorVariable interface
 %
@@ -81,10 +91,12 @@
 %     \DeclareAuthorVariable*{}   - define a mandatory author variable.
 %     \DeclareAuthorVariable{}    - define an optional author variable.
 %
-%   Credits: tex.se.com user "egreg" https://tex.stackexchange.com/users/4427/egreg
-%   in answer http://tex.stackexchange.com/a/93912
+%   Credits:
 %
-%   Content in this subsection is CC-BY-SA 3.0 unported
+%     tex.stackexchange.com user "egreg", https://tex.stackexchange.com/users/4427/egreg
+%     from answer http://tex.stackexchange.com/a/93912
+%
+%   Content is originally from him and licensed under CC-BY-SA 3.0 until noted.
 
 %% This branches between the normal and starred command.
 \newcommand{\DeclareAuthorVariable}{%
@@ -184,9 +196,74 @@
 }
 
 %
-% Environments
+% Action lists
 %
+%   Here, action items and lists get defined. When defining an action item use
+%   `\action{name}{due}{item}` or the Dutch alias `\ap{naam}{deadline}{taak}`.
+%
+%   These will show up in the document and will get sorted per person with the
+%   `\actionlist` command or it's Dutch alias `\aplijst`.
+%
+%   Credits:
+%
+%     tex.stackexchange.com user "Werner", https://tex.stackexchange.com/users/5764/werner
+%     from answer http://tex.stackexchange.com/a/228548
+%
+%   Content is originally from him and licensed under CC-BY-SA 3.0 until noted.
+%
+\RequirePackage{multido}
 
+\newcounter{personcntr}% Keep track of number of persons
+\makeatletter
+\newcommand{\action}[3]{% \action{<name>}{<time>}{<duty>}
+  \@ifundefined{person@#1}{% If person doesn't exist
+    \stepcounter{personcntr}% Next person
+    \expandafter\xdef\csname person@#1\endcsname{1}% One time/duty
+    \expandafter\xdef\csname person@bynumber@\thepersoncntr\endcsname{#1}% Number person
+
+  }{% Person already exists
+    \expandafter\xdef\csname person@#1\endcsname{%
+      \number\numexpr\csname person@#1\endcsname+1}% Step number of time/duty
+  }%
+  \expandafter\xdef\csname person@#1@\csname person@#1\endcsname @time\endcsname{#2}% Store time
+  \expandafter\xdef\csname person@#1@\csname person@#1\endcsname @duty\endcsname{#3}% Store duty
+  \ignorespaces%
+  \noindent\textbf{\GetTranslation{str-action} #1:} #3 \hfill \textit{#2}
+}
+\gdef\newpar{\par}% \multido doesn't enjoy \par
+
+\newcommand\actionlist{% Print actions
+  \def\descriptionBODY{}% Empty descriptionBODY
+  {\let\item\relax% Prevent expansion of \item
+   \let\newpar\relax% Prevent expansion of \newpar
+    \multido{\iPerson=1+1}{\value{personcntr}}{% Step through all persons
+      % Extract person name
+      \expandafter\xdef\expandafter\thisperson\expandafter{\csname person@bynumber@\iPerson\endcsname}%
+      \protected@xdef\descriptionBODY{%
+        \descriptionBODY%
+        \item[\thisperson] \leavevmode\newpar}% Add person name to descriptionBODY
+      % Extract person number
+      \expandafter\xdef\expandafter\thispersonnum\expandafter{\csname person@\thisperson\endcsname}%
+      \multido{\iDuty=1+1}{\thispersonnum}{%
+        \protected@xdef\descriptionBODY{%
+          \descriptionBODY%
+          \csname person@\thisperson @\iDuty @duty\endcsname% Add person duty to descriptionBODY
+          \hfill
+          {\bfseries\csname person@\thisperson @\iDuty @time\endcsname}% Add person time to descriptionBODY
+          \newpar
+        }%
+      }%
+    }%
+  }%
+  % Print person time/duty
+  \section{\GetTranslation{str-actionlist}}% Give the list a title
+  \begin{description}
+    \descriptionBODY
+  \end{description}
+}
+\makeatother
+
+% End of CC-BY-SA 3.0 code
 
 %
 % Dutch aliases
@@ -199,5 +276,7 @@
 \let\gasten\guests
 \let\notulist\notetaker
 \let\hoofd\header
+\let\ap\action
+\let\actiepunten\actionlist
 
 % vim: ft=tex
