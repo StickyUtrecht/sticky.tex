@@ -131,25 +131,25 @@ Here is a list of all of the commands that are intended for author use in this
 package.
 
 <dl>
-  <dt><code>\committee{}</code>, or <code>\commissie</code>, <code>\orgaan</code></dt>
+  <dt><code>\committee{&lt;name&gt;}</code>, or <code>\commissie</code>, <code>\orgaan</code></dt>
   <dd>The name of the committee of the minutes.</dd>
 
-  <dt><code>\members{}</code>, or: <code>\leden</code></dt>
+  <dt><code>\members{&lt;names&gt;}</code>, or: <code>\leden</code></dt>
   <dd>The members of the committee.</dd>
 
-  <dt><code>\absent{}</code>, or: <code>\afwezig</code></dt>
+  <dt><code>\absent{&lt;names&gt;}</code>, or: <code>\afwezig</code></dt>
   <dd>The persons that are absent.</dd>
 
-  <dt><code>\guests{}</code>, or: <code>\gasten</code></dt>
+  <dt><code>\guests{&lt;names&gt;}</code>, or: <code>\gasten</code></dt>
   <dd>Guests to the meeting</dd>
 
-  <dt><code>\notetaker{}</code>, or: <code>\notulist</code></dt>
+  <dt><code>\notetaker{&lt;name&gt;}</code>, or: <code>\notulist</code></dt>
   <dd>The author of the meeting minutes.</dd>
 
-  <dt><code>\date{}</code>, or: <code>\datum</code></dt>
+  <dt><code>\date{&lt;date&gt;}</code>, or: <code>\datum</code></dt>
   <dd>The date of the meeting.</dd>
 
-  <dt><code>\action{}{}{}</code>, or: <code>\ap</code></dt>
+  <dt><code>\action{&lt;name&gt;}{&lt;due&gt;}{&lt;content&gt;}</code>, or: <code>\ap</code></dt>
   <dd>Records an action item for a person.</dd>
 
   <dt><code>\actionlist</code>, or: <code>\actiepunten</code></dt>
