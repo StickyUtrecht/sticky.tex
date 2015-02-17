@@ -96,7 +96,7 @@
 %     tex.stackexchange.com user "egreg", https://tex.stackexchange.com/users/4427/egreg
 %     from answer http://tex.stackexchange.com/a/93912
 %
-%   Content is originally from him and licensed under CC-BY-SA 3.0 until noted.
+%   Content is originally from him/her and licensed under CC-BY-SA 3.0 until noted.
 
 %% This branches between the normal and starred command.
 \newcommand{\DeclareAuthorVariable}{%
@@ -209,7 +209,7 @@
 %     tex.stackexchange.com user "Werner", https://tex.stackexchange.com/users/5764/werner
 %     from answer http://tex.stackexchange.com/a/228548
 %
-%   Content is originally from him and licensed under CC-BY-SA 3.0 until noted.
+%   Content is originally from him/her and licensed under CC-BY-SA 3.0 until noted.
 %
 \RequirePackage{multido}
 
