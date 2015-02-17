@@ -48,9 +48,9 @@
 \RequirePackage{translations}
 
 \DeclareTranslationFallback{str-head}
-  {\vars@committee\xspace minutes \vars@date\xspace}
+  {\vars@committee\xspace, minutes: \vars@date\xspace}
 \DeclareTranslation{Dutch}{str-head}
-  {Notulen \vars@committee\xspace \vars@date\xspace}
+  {Notulen \vars@committee\xspace: \vars@date\xspace}
 
 \DeclareTranslationFallback{str-members}
   {Members\xspace}
