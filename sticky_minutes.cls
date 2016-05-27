@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_minutes}[2015/02/16 version 0.0.9]
+\ProvidesClass{sticky_minutes}[2016/05/25 version 0.0.10]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -71,6 +71,11 @@
   {Minutes taker\xspace}
 \DeclareTranslation{Dutch}{str-notetaker}
   {Notulist\xspace}
+
+\DeclareTranslationFallback{str-chair}
+  {Chairperson\xspace}
+\DeclareTranslation{Dutch}{str-voorzitter}
+  {Voorzitter\xspace}                 
 
 \DeclareTranslationFallback{str-action}
   {Action\xspace}
@@ -144,6 +149,7 @@
 \DeclareAuthorVariable*{absent}
 \DeclareAuthorVariable*{guests}
 \DeclareAuthorVariable*{notetaker}
+\DeclareAuthorVariable*{chair}
 
 %
 % Page headers/footers
@@ -175,6 +181,7 @@
     \item[\GetTranslation{str-members}:] \vars@members
     \item[\GetTranslation{str-absent}:] \vars@absent
     \item[\GetTranslation{str-guests}:] \vars@guests
+    \item[\GetTranslation{str-chair}:] \vars@chair
     \item[\GetTranslation{str-notetaker}:] \vars@notetaker
   \end{description}
 }
@@ -275,6 +282,7 @@
 \let\datum\date
 \let\gasten\guests
 \let\notulist\notetaker
+\let\voorzitter\chair
 \let\hoofd\header
 \let\ap\action
 \let\actiepunten\actionlist
