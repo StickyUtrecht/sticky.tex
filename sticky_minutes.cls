@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_minutes}[2016/05/25 version 0.0.10]
+\ProvidesClass{sticky_minutes}[2018/10/27 version 0.0.2]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -74,8 +74,8 @@
 
 \DeclareTranslationFallback{str-chair}
   {Chairperson\xspace}
-\DeclareTranslation{Dutch}{str-voorzitter}
-  {Voorzitter\xspace}                 
+\DeclareTranslation{Dutch}{str-chair}
+  {Voorzitter\xspace}
 
 \DeclareTranslationFallback{str-action}
   {Action\xspace}
@@ -86,6 +86,11 @@
   {Action items\xspace}
 \DeclareTranslation{Dutch}{str-actionlist}
   {Overzicht actiepunten\xspace}
+
+\DeclareTranslationFallback{str-location}
+  {Location\xspace}
+\DeclareTranslation{Dutch}{str-location}
+  {Locatie\xspace}
 
 %
 % DeclareAuthorVariable interface
@@ -114,7 +119,7 @@
 %% doesn't provide a value for a mandatory variable, we'll catch the issue.
 \newcommand{\vars@DeclareAuthorVariable}[2]{%
   \@namedef{vars@#2}{#1{#2}}%
-  \@namedef{#2}##1{\@namedef{vars@#2}{##1}}%
+  \@namedef{#2}##1{\@namedef{vars@#2}{##1}\@namedef{vars@#2@defined}{}}%
 }
 %% The error and info messages
 \newcommand{\vars@mandatory@var}[1]{%
@@ -129,12 +134,16 @@
     {Missing value for optional variable
      \expandafter\string\csname#1\endcsname}%
 }
+
+\newcommand{\@ifauthorvariable}[3]{\@ifundefined{vars@#1@defined}{#3}{#2}}
+
 %   End of CC-BY-SA 3.0 unported code
 
 %
 % AuthorVariable declarations
 %
 %   This class exposes the following variables to authors for use in the template.
+%	All variables are optional.
 %
 %     \committee{}                 - The name of the committee
 %     \members{}                   - The members of the committee
@@ -142,14 +151,17 @@
 %     \absent{}                    - Absentees
 %     \guests{}                    - Guests
 %     \notetaker{}                 - The notetaker of the minutes
+%     \chair{}                     - The chairman of the committee
+%     \location{}                  - The location of the meeting
 %
 \DeclareAuthorVariable*{committee}
-\DeclareAuthorVariable*{members}
+\DeclareAuthorVariable{members}
 \DeclareAuthorVariable*{date}
-\DeclareAuthorVariable*{absent}
-\DeclareAuthorVariable*{guests}
-\DeclareAuthorVariable*{notetaker}
-\DeclareAuthorVariable*{chair}
+\DeclareAuthorVariable{absent}
+\DeclareAuthorVariable{guests}
+\DeclareAuthorVariable{notetaker}
+\DeclareAuthorVariable{chair}
+\DeclareAuthorVariable{location}
 
 %
 % Page headers/footers
@@ -178,11 +190,24 @@
 %
 \newcommand{\metadata}{%
   \begin{description}
-    \item[\GetTranslation{str-members}:] \vars@members
-    \item[\GetTranslation{str-absent}:] \vars@absent
-    \item[\GetTranslation{str-guests}:] \vars@guests
-    \item[\GetTranslation{str-chair}:] \vars@chair
-    \item[\GetTranslation{str-notetaker}:] \vars@notetaker
+	\@ifauthorvariable{location}{
+		\item[\GetTranslation{str-location}:] \vars@location
+	  	}{}
+	\@ifauthorvariable{members}{
+		\item[\GetTranslation{str-members}:] \vars@members
+		}{}
+	\@ifauthorvariable{absent}{
+		\item[\GetTranslation{str-absent}:] \vars@absent
+		}{}
+	\@ifauthorvariable{chair}{
+		\item[\GetTranslation{str-chair}:] \vars@chair
+		}{}
+	\@ifauthorvariable{notetaker}{
+		\item[\GetTranslation{str-notetaker}:] \vars@notetaker
+		}{}
+	\@ifauthorvariable{guests}{
+		\item[\GetTranslation{str-guests}:] \vars@guests
+		}{}
   \end{description}
 }
 
@@ -286,5 +311,7 @@
 \let\hoofd\header
 \let\ap\action
 \let\actiepunten\actionlist
+\let\aplijst\actionlist
+\let\locatie\location
 
 % vim: ft=tex
