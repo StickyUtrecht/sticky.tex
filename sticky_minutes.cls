@@ -14,7 +14,7 @@
 %   The next lines give this class its name, a version and the date of last
 %   modification. It also restricts the input format to LaTex2e.
 %
-\ProvidesClass{sticky_minutes}[2016/05/25 version 0.0.10]
+\ProvidesClass{sticky_minutes}[2018/10/27 version 0.0.2]
 \NeedsTeXFormat{LaTeX2e}
 
 %
@@ -74,7 +74,7 @@
 
 \DeclareTranslationFallback{str-chair}
   {Chairperson\xspace}
-\DeclareTranslation{Dutch}{str-voorzitter}
+\DeclareTranslation{Dutch}{str-chair}
   {Voorzitter\xspace}
 
 \DeclareTranslationFallback{str-action}

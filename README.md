@@ -25,7 +25,6 @@ These files require LaTeX2e. Older versions are not supported.
  - `fancyhdr`
  - `lastpage`
  - `multido`
- - `multido`
 
 ## Installation
 
@@ -56,6 +55,8 @@ picked up. You can verify the installation with the `kpsewhich` command. For exa
 ```
 kpsewhich sticky_minutes.cls
 ```
+
+A scripts exists to perform this installation automatically, see `install.sh`.
 
 ## Usage
 
@@ -130,31 +131,18 @@ action list as appendix that sorts the action items per person as seen here:
 Here is a list of all of the commands that are intended for author use in this
 package.
 
-<dl>
-  <dt><code>\committee{&lt;name&gt;}</code>, or <code>\commissie</code>, <code>\orgaan</code></dt>
-  <dd>The name of the committee of the minutes.</dd>
-
-  <dt><code>\members{&lt;names&gt;}</code>, or: <code>\leden</code></dt>
-  <dd>The members of the committee.</dd>
-
-  <dt><code>\absent{&lt;names&gt;}</code>, or: <code>\afwezig</code></dt>
-  <dd>The persons that are absent.</dd>
-
-  <dt><code>\guests{&lt;names&gt;}</code>, or: <code>\gasten</code></dt>
-  <dd>Guests to the meeting</dd>
-
-  <dt><code>\notetaker{&lt;name&gt;}</code>, or: <code>\notulist</code></dt>
-  <dd>The author of the meeting minutes.</dd>
-
-  <dt><code>\date{&lt;date&gt;}</code>, or: <code>\datum</code></dt>
-  <dd>The date of the meeting.</dd>
-
-  <dt><code>\action{&lt;name&gt;}{&lt;due&gt;}{&lt;content&gt;}</code>, or: <code>\ap</code></dt>
-  <dd>Records an action item for a person.</dd>
-
-  <dt><code>\actionlist</code>, or: <code>\actiepunten</code></dt>
-  <dd>Prints a sorted action list of the meeting.</dd>
-</dl>
+| English                       | Dutch                         | Use                                           |
+| ----------------------------- | ----------------------------- | --------------------------------------------- |
+| `\committee{name}`            | `\commissie`, `\orgaan`       | The name of the committee of the minutes.     |
+| `\members{name, name, ...}`   | `\leden`                      | The members of the committee.                 |
+| `\chair{name}`                | `\voorzitter`                 | The name of the chairperson of the meeting.   |
+| `\notetaker{name}`            | `\notulist`                   | The author of the meeting minutes.            |
+| `\date{date_of_meeting}`      | `\datum`                      | The date of the meeting.                      |
+| `\location{location}`         | `\locatie`                    | The location of the meeting                   |
+| `\absent{name, name, ...}`    | `\afwezig`                    | The persons that are absent.                  |
+| `\guests{name, name, ...}`    | `\gasten`                     | Guests to the meeting                         |
+| `\action{name}{due}{content}` | `\ap`                         | Records an action item for a person.          |
+| `\actionlist`                 | `\aplijst`, `\actiepunten`    | Prints a sorted action list of the meeting.   |
 
 ## License
 
